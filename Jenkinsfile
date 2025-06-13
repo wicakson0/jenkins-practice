@@ -25,7 +25,8 @@ pipeline {
             steps {
                 echo "Building and Running Unit Test:"
                 echo "==============================="
-                bat "./mvnw clean install"
+                
+                sh "./mvnw clean install"
             }
         }
         stage('build docker image') {
@@ -37,19 +38,19 @@ pipeline {
             steps {
                 echo "Building Docker Image:"
                 echo "======================"
-                bat "docker build -t ${env.IMAGE_NAME}:${env.IMAGE_TAG} ."
+                sh "docker build -t ${env.IMAGE_NAME}:${env.IMAGE_TAG} ."
             }
         }
         stage('Push Docker Image to Repository') {
             steps{
-                 bat "docker tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.REGISTRY_ADDRESS}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
-                 bat "docker push ${env.REGISTRY_ADDRESS}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                 sh "docker tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.REGISTRY_ADDRESS}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                 sh "docker push ${env.REGISTRY_ADDRESS}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
             }
         }
         stage('Deploy Container') {
             steps{
-                bat "docker pull ${env.REGISTRY_ADDRESS}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
-                bat "docker run -d -p ${env.CONTAINER_PORT}:${env.HOST_PORT} --name ${env.CONTAINER_NAME} ${env.REGISTRY_ADDRESS}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                sh "docker pull ${env.REGISTRY_ADDRESS}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+                sh "docker run -d -p ${env.CONTAINER_PORT}:${env.HOST_PORT} --name ${env.CONTAINER_NAME} ${env.REGISTRY_ADDRESS}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
             }
         }
     }
