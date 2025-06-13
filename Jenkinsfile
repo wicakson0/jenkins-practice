@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo "Building and Running Unit Test:"
                 echo "==============================="
-                
+                chmod +x ./mvnw
                 sh "./mvnw clean install"
             }
         }
