@@ -8,7 +8,7 @@ pipeline {
         IMAGE_TAG = 'latest'
         TARGET_DIR = 'D:\\Deployments\\SpringBoot'
         REPO = 'https://github.com/wicakson0/jenkins-practice.git'
-        BRANCH_NAME = 'main'
+        BRANCH_NAME = 'macos'
         JARNAME = 'jenkinspractice-0.0.1-SNAPSHOT.jar'
         REGISTRY_ADDRESS = 'localhost:5000'
     }
