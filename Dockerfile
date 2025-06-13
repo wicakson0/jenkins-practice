@@ -1,5 +1,5 @@
 # Use a lightweight JDK base image
-FROM eclipse-temurin:17-jdk-alpine as build
+FROM arm64v8/openjdk:17-jdk as build
 
 # Set environment variable
 ENV APP_HOME=/app
